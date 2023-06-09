@@ -20,10 +20,10 @@ $exeLevel = mysqli_query($connection, $selectLevels);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="../css/register.css">
-    <link rel="stylesheet" href="../css/spinner.css">
+    <link rel="stylesheet" href="../../resources/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../resources/css/index.css">
+    <link rel="stylesheet" href="../../resources/css/register.css">
+    <link rel="stylesheet" href="../../resources/css/spinner.css">
     <title><?= APPNAME ?></title>
     <style>
         .form-floating {
@@ -152,9 +152,9 @@ $exeLevel = mysqli_query($connection, $selectLevels);
             </div>
         </div>
     </main>
-    <p class="mt-5 mb-3 text-center text-muted">&copy; 2022</p>
+    <p class="mt-5 mb-3 text-center text-muted">&copy; 2023</p>
 </body>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="../js/index.js"></script>
+<script src="../../resources/js/libraries/jquery.min.js"></script>
+<script src="../../resources/js/index.js"></script>
 
 </html>

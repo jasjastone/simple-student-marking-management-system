@@ -85,7 +85,7 @@ if (isset($_SESSION['email'])) {
             <div class="layer-2-register-form">
                 <form action="../../auth/login.php" method="post">
                     <img class="mb-4" src="../../files/systemimages/atc.svg" alt="" width="72" height="57">
-                    <h3 class="h3 mb-3 fw-normal info-color">ATC Postpondment Management System</h3>
+                    <h3 class="h3 mb-3 fw-normal info-color"><?=APPNAME?></h3>
                     <h3 class="h3 mb-3 fw-normal">Please sign in</h3>
                     <?php if (isset($_GET['message'])) : ?>
                         <div class="alert-info p-3 rounded-pill">

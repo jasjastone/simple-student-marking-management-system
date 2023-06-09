@@ -179,7 +179,7 @@
                                 <tr>
                                     <th>6</th>
                                     <th>Supplimentary Exam</th>
-                                    <th><input type="number" name="suppexam" value="<?= $final ?>" class="form-control"></th>
+                                    <th><input type="number" name="suppexam" value="<?= $supp ?>" class="form-control"></th>
                                 </tr>
                             </tbody>
                         </table>

@@ -50,7 +50,10 @@
                 <hr>
             </form>
         <?php endif; ?>
-        <a class="btn btn-success" href="./index.php?route=/pages/marks/showresults&name=Students Result">New Search </a>
+        <?php if ($_SESSION['role'] != STUDENT) : ?>
+            <a class="btn btn-success" href="./index.php?route=/pages/marks/showresults&name=Students Result">New Search </a>
+        <?php endif; ?>
+
         <?php if ((isset($_GET['students']) && $_GET['students'] != "") && (isset($_GET['courses']) && $_GET['courses'] != "")) { ?>
             <?php
             $student = $_GET['students'];
@@ -85,7 +88,7 @@
                             if ($noofmodulesresult >= $noofmodules) {
                                 // if the search has a semister number
                                 if ($semister != "") {
-                                    $query = "SELECT * FROM marks m GROUP BY semister HAVING student_id=$student $semister";
+                                    $query = "SELECT * FROM marks m WHERE student_id=$student $semister GROUP BY semister";
                                     $exquery = mysqli_query($connection, $query);
                                     while ($row = $exquery->fetch_array()) {
                                         echo '<tr>
@@ -94,11 +97,11 @@
                                          <th>' . $row['semister'] . '</th>
                                          <th><a href="index.php?route=/pages/marks/releasedresult&name=Released Result&student=' . $student . '&semister=' . $row['semister'] . '&course=' . $courses . '">**...Released...**</a> </th>
                                          <th>View Course Work</th>
-                                     </tr>';
+                                         </tr>';
                                     }
                                 } else {
                                     // if not then let check which semister has a result
-                                    $query = "SELECT * FROM marks m GROUP BY semister HAVING student_id=$student $semister";
+                                    $query = "SELECT * FROM marks m WHERE student_id=$student $semister GROUP BY semister";
                                     $exquery = mysqli_query($connection, $query);
                                     while ($row = $exquery->fetch_array()) {
                                         $noofmodulesresult = mysqli_query($connection, "SELECT COUNT(*) as noofmodulesresult FROM marks m INNER JOIN modules md ON md.id=m.module_id WHERE m.student_id=$student AND md.course_id=$courses AND m.semister=" . $row['semister'])->fetch_array()['noofmodulesresult'];

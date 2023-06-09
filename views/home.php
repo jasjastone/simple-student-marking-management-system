@@ -24,7 +24,7 @@ if ($semisteravailable > 1) {
         <div class="card-body">
           <h5 class="card-title">Examination Results</h5>
           <p class="card-text">Results are available for <?php echo $bothsemister ? "BOTH" : $semisteravailable ?> semister </p>
-          <div class="card-actions"><a href="index.php?route=/pages/marks/examinationresult&name=Examination Results&from=<?= $_GET['from'] ?>&fromname=<?= $_GET['fromname'] ?>" class="btn btn-success">View</a></div>
+          <div class="card-actions"><a href="index.php?route=/pages/marks/showresults&name=Students Result&departments=<?=$user['department_id']?>&courses=<?=$user['course_id']?>&students=<?=$user['id']?>&semister=&from=<?= $_GET['from'] ?>&fromname=<?= $_GET['fromname'] ?>" class="btn btn-success">View</a></div>
         </div>
       </div>
     <?php endif; ?>

@@ -1,0 +1,41 @@
+form{
+    /* box-shadow: 2px 2px 4px black; */
+    border-radius: 10px;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px 50px 5px 50px;
+    justify-content: center;
+}
+.names{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+input:hover,select:hover{
+ box-shadow: 0 0 5px 1px #ccc;
+}
+.layer-1-register-form{
+    width: 80%;
+    border-radius: 10px;
+    margin: 10px auto;
+    box-shadow: 0px 25px 0px #ccc;
+    background-color: #ccc;
+    padding: 10px;
+
+}
+.layer-2-register-form{
+    box-shadow: 0px 15px 0px #eee;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 10px;
+}
+@media only screen and (max-width:760px) {
+    form{
+        width:99%;
+        padding: 10px 20px;
+    }
+    .names{
+        gap: 5px;
+        justify-content: center;
+    }
+}

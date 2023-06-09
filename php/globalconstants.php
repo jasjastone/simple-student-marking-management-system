@@ -1,0 +1,9 @@
+<?php
+define('ADMISSIONOFFICER','admission-officer');
+define('ADMIN','admin');
+define('HOD','hod');
+define('ACCOUNTANT','accountant');
+define('STUDENT','student');
+define('DEPUTYRECTOR','deputy-rector');
+define('RECTOR','rector');
+define('TEACHER','teacher');

@@ -1,4 +1,5 @@
 <?php
+require "../config/app_config.php";
 require "../php/connection.php";
 require "../modules/Validation/Validator.php";
 require "../php/globalfunction.php";
@@ -92,13 +93,15 @@ if (isset($_POST['register'])) {
         die();
     }
     if (move_uploaded_file($_FILES['signature']['tmp_name'], $path)) {
-        $insertExe = $connection->query("INSERT INTO `users`(`fname`, `mname`, `lname`, `email`, `password`, `course_id`, `admission_number`, `phone_number`, `academic_year`, `level_id`, `profile_image`, `semister`, `role_id`, `department_id`) VALUES ('$fname','$mname', '$lname', '$email', '$password', $course, '$admission_number', $phone_number, $academic_year, $NTALEVEL, '$signaturePath', $semister, $roleId,$department_id)");
+        $insertquery = "INSERT INTO `users`(`fname`, `mname`, `lname`, `email`, `password`, `course_id`, `admission_number`, `phone_number`, `academic_year`, `level_id`, `profile_image`, `semister`, `role_id`, `department_id`) VALUES ('$fname','$mname', '$lname', '$email', '$password', $course, '$admission_number', $phone_number, '$academic_year', $NTALEVEL, '$signaturePath', $semister, $roleId,$department_id)";
+        $insertExe = $connection->query($insertquery);
+        echo $insertquery;
         if ($insertExe) {
             header("Location:../views/auth/login.php?message=Register success Please login");
             die();
         } else {
+            die(mysqli_error($connection));
             header("Location:../views/auth/register.php?message='Could Not Register'");
-            die();
         }
     }
 }

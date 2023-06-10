@@ -108,6 +108,6 @@ if (isset($_SESSION['email'])) {
         <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
     </main>
 </body>
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="../js/index.js"></script>
+<script src="../../resources/js/libraries/jquery.min.js"></script>
+<script src="../../resources/js/index.js"></script>
 </html>

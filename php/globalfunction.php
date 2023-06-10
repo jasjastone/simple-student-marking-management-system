@@ -30,32 +30,3 @@ function reload($route = null,$header=false, $routename = "", $from = '', $fromn
     exit();
     return;
 }
-
-/**
- * Function to delete user and its assosiative data from the relationships
- * @param \mysqli $connection
- * @param int $id
- * @return bool
- */
-function deleteUserAndAssosiativeData($connection, $id)
-{
-    $user = $connection->query("SELECT * FROM users WHERE id=$id");
-    $request = $connection->query("SELECT * FROM requests WHERE id=" . $user['id']);
-    $request = $connection->query("SELECT * FROM requests WHERE id=" . $user['id']);
-    $approve = $connection->query("SELECT * FROM approved WHERE id=" . $user['id']);
-    if (mysqli_num_rows($request) > 0) {
-        while ($row = $request->fetch_array()) {
-            $connection->query("DELETE FROM requests WHERE id=" . $row['id']);
-        }
-    }
-    if (mysqli_num_rows($approve) > 0) {
-        while ($row = $approve->fetch_array()) {
-            $connection->query("DELETE FROM approved WHERE id=" . $row['id']);
-        }
-    }
-    $userDelete = $connection->query("DELETE FROM users WHERE id=".$user['id']);
-    if($userDelete){
-        return true;
-    }
-    return false;
-}

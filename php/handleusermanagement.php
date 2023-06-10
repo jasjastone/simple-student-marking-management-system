@@ -1,10 +1,10 @@
 <?php
+require "../config/app_config.php";
 require "./connection.php";
 require "./globalfunction.php";
 if (isset($_POST['delete-user-button'])) {
     $id = $_POST['student_id'];
     $delete = $connection->query("DELETE FROM users WHERE id=$id") or die(mysqli_error($connection));
-    exit();
     if ($delete) {
         echo "Delete Successully";
         exit();

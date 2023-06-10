@@ -16,7 +16,6 @@ $(".delete-user-button-first").click(function (event) {
     const roles = JSON.parse(res['roles']);
     for (let index = 0; index < roles.length; index++) {
       const element = roles[index];
-      console.log(element);
     }
     document.getElementById("fullname").textContent =
       user['fname'] + " " + user['mname'] + " " + user['lname'];
@@ -39,7 +38,6 @@ $(".edit-user-button-first").click(function (event) {
   });
   request.done(function (response, textStatus, jqXHR) {
     const res = JSON.parse(response);
-    console.log(res);
     document.getElementById("fullname").textContent =
       res['user']['fname'] + " " + res[0][2] + " " + res[0][3];
     document.getElementById("userrole").textContent = res[1];
@@ -65,7 +63,6 @@ $("#deleteForm").submit(function (event) {
   });
   request.done(function (response, textStatus, jqXHR) {
     $("#staticBackdropDelete").modal("hide");
-    console.log(response);
     location.reload();
   });
   request.fail(function (jqXHR, textStatus, errorThrown) {
@@ -87,8 +84,7 @@ $("#editForm").submit(function (event) {
   });
   request.done(function (response, textStatus, jqXHR) {
     $("#staticBackdropDelete").modal("hide");
-    console.log(response);
-    // location.reload();
+    location.reload();
   });
   request.fail(function (jqXHR, textStatus, errorThrown) {
     console.error("The following error occurred: " + textStatus, errorThrown);

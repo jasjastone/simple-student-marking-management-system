@@ -19,7 +19,6 @@ function reload($route = null,$header=false, $routename = "", $from = '', $fromn
         return;
     }
     else if ($route != null) {
-        echo "hi";
         echo "<script>window.location.replace(window.location.href='index.php?route=$route&name=$routename&from=$from&fromname=$fromname$with')</script>";
         exit();
         return;

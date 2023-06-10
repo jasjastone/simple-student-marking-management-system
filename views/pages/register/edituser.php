@@ -54,7 +54,7 @@ if ($editUser['level_id'] != null) {
                             <label for="mname">Middle Name</label>
                         </div>
                         <div class="form-floating">
-                            <input placeholder="Sur Name" value="<?= $editUser['lname'] ?>" type="text" name="sname" class="form-control" id="sname">
+                            <input placeholder="Sur Name" value="<?= $editUser['lname'] ?>" type="text" name="lname" class="form-control" id="sname">
                             <label for="sname">Sur Name</label>
                         </div>
                     </div>
@@ -111,6 +111,18 @@ if ($editUser['level_id'] != null) {
                                 <option value="<?= $editUser['semister'] ?>"><?= $editUser['semister'] ?></option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Department</label>
+                            <select class="form-select" require name="department_id" id="department">
+                                <?php
+                                $deparments = $connection->query("SELECT * FROM departments");
+                                while ($row = mysqli_fetch_array($deparments)) { ?>
+                                    <option <?php echo $editUser['department_id'] == $row['id'] ? "select='selected'" : '' ?> value="<?php echo $row['id']; ?>">
+                                        <?php echo $row['name']; ?>
+                                    </option>
+                                <?php } ?>
                             </select>
                         </div>
                         <div class="form-group">

@@ -111,21 +111,21 @@ if (isset($_POST['register'])) {
 
 if (isset($_POST['save-user-details'])) {
     $user_id = $_POST['user_id'];
-    $user = $connection->query("SELECT * FROM users WHERE id=" . $user_id)->fetch_array();
-    $fname = $_POST['fname'] != null ? $_POST['fname'] : $user['fname'];
-    $mname = $_POST['mname'] != null ? $_POST['mname'] : $user['mname'];
-    $lname = $_POST['lname'] != null ? $_POST['lname'] : $user['lname'];
-    $level_id = $_POST['level_id'] != null ? $_POST['level_id'] : $user['level_id'];
-    $role_id = $_POST['role_id'] != null ? $_POST['role_id'] : $user['role_id'];
-    $course_id = $_POST['course_id'] != null ? $_POST['course_id'] : $user['course_id'];
-    $email = $_POST['email'] != null ? $_POST['email'] : $user['email'];
-    $password = $_POST['password'] != null ? $_POST['password'] : $user['password'];
-    $admission_number = $_POST['admission_number'] != null ? $_POST['admission_number'] : $user['admission_number'];
-    $phone_number = $_POST['phone_number'] != null ? $_POST['phone_number'] : $user['phone_number'];
-    $academic_year = $_POST['academic_year'] != null ? $_POST['academic_year'] : $user['academic_year'];
-    $profile_image = $_FILES['profile_image']['name'] != null ? $_FILES['profile_image']['name'] : $user['profile_image'];
-    $semister = $_POST['semister'] != null ? $_POST['semister'] : $user['semister'];
-    $department_id = $_POST['department_id'] != null ? $_POST['department_id'] : $user['department_id'];
+    $userdetails = $connection->query("SELECT * FROM users WHERE id=" . $user_id)->fetch_array();
+    $fname = $_POST['fname'] != null ? $_POST['fname'] : $userdetails['fname'];
+    $mname = $_POST['mname'] != null ? $_POST['mname'] : $userdetails['mname'];
+    $lname = $_POST['lname'] != null ? $_POST['lname'] : $userdetails['lname'];
+    $level_id = $_POST['level_id'] != null ? $_POST['level_id'] : $userdetails['level_id'];
+    $role_id = $_POST['role_id'] != null ? $_POST['role_id'] : $userdetails['role_id'];
+    $course_id = $_POST['course_id'] != null ? $_POST['course_id'] : $userdetails['course_id'];
+    $email = $_POST['email'] != null ? $_POST['email'] : $userdetails['email'];
+    $password = $_POST['password'] != null ? $_POST['password'] : $userdetails['password'];
+    $admission_number = $_POST['admission_number'] != null ? $_POST['admission_number'] : $userdetails['admission_number'];
+    $phone_number = $_POST['phone_number'] != null ? $_POST['phone_number'] : $userdetails['phone_number'];
+    $academic_year = $_POST['academic_year'] != null ? $_POST['academic_year'] : $userdetails['academic_year'];
+    $profile_image = $_FILES['profile_image']['name'] != null ? $_FILES['profile_image']['name'] : $userdetails['profile_image'];
+    $semister = $_POST['semister'] != null ? $_POST['semister'] : $userdetails['semister'];
+    $department_id = $_POST['department_id'] != null ? $_POST['department_id'] : $userdetails['department_id'];
     if ($_FILES['profile_image']['name'] != null) {
         $directory = "../files/images/";
         if (Validator::image($profile_image)) {
@@ -138,17 +138,61 @@ if (isset($_POST['save-user-details'])) {
             reload(headerroutepathfile: '../index.php?route=/pages/register/edituser', header: true, routename: "Manage Users", with: "&id=$user_id&error=Invalid Image Format only .png,.jpeg,.jpg file are allowed");
         }
     }
-    $update = $connection->query("UPDATE users SET
+    if ($fname == "") {
+        $fname = "NULL";
+    }
+    if ($mname == "") {
+        $mname = "NULL";
+    }
+    if ($lname == "") {
+        $lname = "NULL";
+    }
+    if ($level_id == "") {
+        $level_id = "NULL";
+    }
+    if ($course_id == "") {
+        $course_id = "NULL";
+    }
+    if ($email == "") {
+        $email = "NULL";
+    }
+    if ($password == "") {
+        $password = "NULL";
+    }
+    if ($admission_number == "") {
+        $admission_number = NULL;
+    }
+    if ($phone_number == "") {
+        $phone_number = "NULL";
+    }
+    if ($academic_year == "") {
+        $academic_year = NULL;
+    }
+    if ($profile_image == "") {
+        $profile_image = NULL;
+    }
+    if ($semister == "") {
+        $semister = "NULL";
+    }
+    if ($department_id == "") {
+        $department_id = "NULL";
+    }
+
+
+
+    $updatequery = "UPDATE users SET
     `fname`='$fname',`mname`='$mname',
     `lname`='$lname',`email`='$email',
     `password`='$password',`course_id`=$course_id,
     `admission_number`='$admission_number',`phone_number`=$phone_number,
-    `academic_year`=$academic_year,`level_id`=$level_id,
-    `profile_image`='$profile_image',`semister`='$semister',
+    `academic_year`='$academic_year',`level_id`=$level_id,
+    `profile_image`='$profile_image',`semister`=$semister,
     `role_id`=$role_id,`department_id`=$department_id
-     WHERE id=" . $user_id) or die(mysqli_error($connection));
+     WHERE id=" . $user_id;
+    echo $updatequery;
+    $update = $connection->query($updatequery);
     if ($update) {
-        echo "hi";
+        // header("Location:../index.php?route=/pages/register/users&name=Manage Users&message=Update the user successfully");
         reload(headerroutepathfile: '../index.php?route=/pages/register/users', header: true, routename: "Manage Users", with: "&message=Update the user successfully");
         exit();
     } else {
@@ -219,7 +263,8 @@ if (isset($_POST['adduser'])) {
             reload(headerroutepathfile: '../index.php?route=/pages/register/adduser', header: true, routename: "Add User", with: "&error=Admission Number exist");
             exit();
         }
-    } catch (\Throwable $th) {}
+    } catch (\Throwable $th) {
+    }
     if ($_FILES['signature']['name'] != null) {
         if (Validator::image($signature)) {
             Validator::createDirectoryIfNotExist($directory);
@@ -230,11 +275,11 @@ if (isset($_POST['adduser'])) {
         }
         move_uploaded_file($_FILES['signature']['tmp_name'], $path);
     }
-    $admission_number = $admission_number == null?"NULL":$admission_number;
-    $NTALEVEL = $NTALEVEL != null?$NTALEVEL:"NULL";
-    $semister = $semister != null?$semister:"NULL";
-    $academic_year = $academic_year!= null?$academic_year:"NULL";
-    $course = $course!= null?$course:"NULL";
+    $admission_number = $admission_number == null ? "NULL" : $admission_number;
+    $NTALEVEL = $NTALEVEL != null ? $NTALEVEL : "NULL";
+    $semister = $semister != null ? $semister : "NULL";
+    $academic_year = $academic_year != null ? $academic_year : "NULL";
+    $course = $course != null ? $course : "NULL";
     // echo "INSERT INTO `users`(`fname`, `mname`, `lname`, `email`, `password`, `course_id`, `admission_number`, `phone_number`, `academic_year`, `level_id`, `profile_image`, `semister`, `role_id`) VALUES ('$fname','$mname', '$lname', '$email', '$password', $course, '$admission_number', $phone_number, $academic_year, $NTALEVEL, '$signaturePath', $semister, $roleId)";
     $insertExe = $connection->query("INSERT INTO `users`(`fname`, `mname`, `lname`, `email`, `password`, `course_id`, `admission_number`, `phone_number`, `academic_year`, `level_id`, `profile_image`, `semister`, `role_id`) VALUES ('$fname','$mname', '$lname', '$email', '$password', $course, '$admission_number', $phone_number, $academic_year, $NTALEVEL, '$signaturePath', $semister, $roleId)") or die(mysqli_error($connection));
     if ($insertExe) {

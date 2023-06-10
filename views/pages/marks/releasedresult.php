@@ -57,7 +57,7 @@
                                 <td>' . $calculatedgradeandgp['gp'] . '</td>
                                 <td>' . $row['credit'] . '</td>
                                 <td>' . $gptimescp . '</td>
-                                <td>' . ((($calculatedgradeandgp['gp'] >= 3 && $minimumgpa > 4) || ($calculatedgradeandgp['gp'] >= 2 && $minimumgpa < 5)) ? 'Pass' : 'Fail') . '</td>
+                                <td>' . ((($calculatedgradeandgp['gp'] >= 3 && $minimumgpa > 4) || ($calculatedgradeandgp['gp'] >= 2 && $minimumgpa < 5) && $calculatedgradeandgp['pass']) ? 'Pass' : 'Re-do') . '</td>
                             </tr>';
                         }
                         $gpa = number_format($sumofgptimescp / $sumofcreditpoints, 1);
@@ -105,7 +105,7 @@ function calGradeAndGP($minimumgpa, $assaignment1, $assaignment2, $test1, $test2
     } else if ($total >= 40 && $total < 50) {
         $grade = "D";
     } else {
-        $grade = $total;
+        $grade = "F";
     }
     if ($grade == "A" && $minimumgpa > 4) {
         $gp = 5;
@@ -122,7 +122,13 @@ function calGradeAndGP($minimumgpa, $assaignment1, $assaignment2, $test1, $test2
     } else {
         $gp = 1;
     }
-    return ['grade' => $grade, "gp" => $gp];
+    $pass = false;
+    if ($final_exam >= 30) {
+        $pass = true;
+    } else if ($final_exam < 30 && $sup_exam == "") {
+        $pass = false;
+    }
+    return ['grade' => $grade, "gp" => $gp, 'pass' => $pass];
 }
 
 ?>

@@ -1,11 +1,20 @@
 <?php
 $bothsemister = false;
 $semisteravailable = "None";
-
-$semisters = $connection->query("SELECT * FROM marks WHERE student_id=" . $user['id']);
+$semisters = $connection->query("SELECT * FROM marks WHERE student_id=" . $user['id'] . " GROUP BY semister");
 $semistercount = 0;
 while ($row = $semisters->fetch_array()) {
-  if ($row['final_exam'] != "" || $row['sup_exam'] != "") {
+  $makrsonasemister = $connection->query("SELECT * FROM marks WHERE student_id=" . $user['id'] . " AND semister=" . $row['semister']);
+  $isavailable = false;
+  while ($rowsec = $makrsonasemister->fetch_array()) {
+    if ($row['final_exam'] == "" && $row['sup_exam'] == "") {
+      $isavailable = false;
+    }
+    if ($row['final_exam'] != "" || $row['sup_exam'] != "") {
+      $isavailable = true;
+    }
+  }
+  if ($isavailable) {
     $semisteravailable = $row['semister'];
     $semistercount += 1;
   }
@@ -24,7 +33,7 @@ if ($semisteravailable > 1) {
         <div class="card-body">
           <h5 class="card-title">Examination Results</h5>
           <p class="card-text">Results are available for <?php echo $bothsemister ? "BOTH" : $semisteravailable ?> semister </p>
-          <div class="card-actions"><a href="index.php?route=/pages/marks/showresults&name=Students Result&departments=<?=$user['department_id']?>&courses=<?=$user['course_id']?>&students=<?=$user['id']?>&semister=&from=<?= $_GET['from'] ?>&fromname=<?= $_GET['fromname'] ?>" class="btn btn-success">View</a></div>
+          <div class="card-actions"><a href="index.php?route=/pages/marks/showresults&name=Students Result&departments=<?= $user['department_id'] ?>&courses=<?= $user['course_id'] ?>&students=<?= $user['id'] ?>&semister=&from=<?= $_GET['from'] ?>&fromname=<?= $_GET['fromname'] ?>" class="btn btn-success">View</a></div>
         </div>
       </div>
     <?php endif; ?>

@@ -96,7 +96,7 @@
                                          <th>' . $studentrow['level'] . '</th>
                                          <th>' . $row['semister'] . '</th>
                                          <th><a href="index.php?route=/pages/marks/releasedresult&name=Released Result&student=' . $student . '&semister=' . $row['semister'] . '&course=' . $courses . '">**...Released...**</a> </th>
-                                         <th>View Course Work</th>
+                                         <th><a href="index.php?route=/pages/marks/viewcoursework&name=View Course Work&student=' . $student . '&semister=' . $row['semister'] . '&course=' . $courses . '">View Course Work</a> </th>
                                          </tr>';
                                     }
                                 } else {
@@ -112,7 +112,7 @@
                                          <th>' . $studentrow['level'] . '</th>
                                          <th>' . $row['semister'] . '</th>
                                          <th><a href="index.php?route=/pages/marks/releasedresult&name=Released Result&student=' . $student . '&semister=' . $row['semister'] . '&course=' . $courses . '">**...Released...**</a> </th>
-                                         <th>View Course Work</th>
+                                         <th><a href="index.php?route=/pages/marks/viewcoursework&name=View Course Work&student=' . $student . '&semister=' . $row['semister'] . '&course=' . $courses . '">View Course Work</a> </th>
                                      </tr>';
                                         }
                                     }

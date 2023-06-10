@@ -9,8 +9,11 @@
         $exquery = mysqli_query($connection, $query);
         ?>
         <div class="col-md-12">
-        <a href="index.php?route=/pages/marks/showresults&name=Students Result&departments=<?=$user['department_id']?>&courses=<?=$user['course_id']?>&students=<?=$user['id']?>&semister=&from=<?= $_GET['from'] ?>&fromname=<?= $_GET['fromname'] ?>" class="text-decoration-none bg-primary rounded-2 p-1 bg-opacity-10">GO Back to results</a>
-            <div class="table-data">
+            <?php if ($_SESSION['role'] == STUDENT) : ?>
+                <a href="index.php?route=/pages/marks/showresults&name=Students Result&departments=<?= $user['department_id'] ?>&courses=<?= $user['course_id'] ?>&students=<?= $user['id'] ?>&semister=&from=<?= $_GET['from'] ?>&fromname=<?= $_GET['fromname'] ?>" class="text-decoration-none bg-primary rounded-2 p-1 bg-opacity-10">GO Back to results</a>
+            <?php endif; ?>
+            <div class="d-flex justify-content-end"><button onclick="printdata('report-div')" class="btn btn-primary">Print</button></div>
+            <div class="table-data" id='report-div'>
                 <table class="table table-striped table-hover table-primary">
                     <thead class="primary-color">
                         <tr>
@@ -54,7 +57,7 @@
                                 <td>' . $calculatedgradeandgp['gp'] . '</td>
                                 <td>' . $row['credit'] . '</td>
                                 <td>' . $gptimescp . '</td>
-                                <td>' . ((($calculatedgradeandgp['gp'] >= 3 && $minimumgpa > 4) ||($calculatedgradeandgp['gp'] >= 2 && $minimumgpa < 5)) ? 'Pass' : 'Fail') . '</td>
+                                <td>' . ((($calculatedgradeandgp['gp'] >= 3 && $minimumgpa > 4) || ($calculatedgradeandgp['gp'] >= 2 && $minimumgpa < 5)) ? 'Pass' : 'Fail') . '</td>
                             </tr>';
                         }
                         $gpa = number_format($sumofgptimescp / $sumofcreditpoints, 1);

@@ -14,7 +14,7 @@ try {
     document.getElementById("showreason").classList.add("d-none");
     return;
   });
-} catch (error) {}
+} catch (error) { }
 // end of it show the reason and hide the reason field on process request .php
 
 // hide and show of the leftbalance field on process request.php
@@ -35,15 +35,22 @@ try {
     }
     document.getElementById("has_not_paid_field").classList.add("d-none");
   });
-} catch (error) {}
+} catch (error) { }
 // end of it hide and show of the leftbalance field on process request.php
 
-function toggleActiveLink(link){
-  if(!link.classList.contains("active")){
+function toggleActiveLink(link) {
+  if (!link.classList.contains("active")) {
     link.classList.toggle("active");
   }
 }
 
-$(window).on("load",function(){
+$(window).on("load", function () {
   $(".loader-wrapper").fadeOut("slow");
 });
+
+function printdata(elementid) {
+  var old_str = document.body.innerHTML;
+  document.body.innerHTML = document.getElementById(elementid).innerHTML;
+  window.print();
+  document.body.innerHTML = old_str;
+}

@@ -29,3 +29,8 @@ function reload($route = null,$header=false, $routename = "", $from = '', $fromn
     exit();
     return;
 }
+function reload_currentpage($with)
+{
+    $baseurl = basename($_SERVER['REQUEST_URI'])."&$with";
+    header("Location: $baseurl");
+}

@@ -4,8 +4,8 @@ session_start();
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 //uncomment for production build
-// ini_set('display_errors', 0);
-// ini_set('display_startup_errors', 0);
+ini_set('display_errors', 0);
+ini_set('display_startup_errors', 0);
 require "./config/app_config.php";
 require "./views/layouts/header/header.php";
 if (!isset($_SESSION['email'])) {
@@ -58,6 +58,14 @@ if (!isset($_SESSION['email'])) {
                                 <a onclick="toggleActiveLink(this)" class="nav-link" href="./index.php?route=/pages/register/adduser&name=Add User">
                                     <span class="align-text-bottom"></span>
                                     Add User
+                                </a>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($_SESSION['role'] == ADMISSIONOFFICER) : ?>
+                            <li class="nav-item">
+                                <a onclick="toggleActiveLink(this)" class="nav-link" href="./index.php?route=/pages/manager/manager&name=Manager">
+                                    <span class="align-text-bottom"></span>
+                                    Manager
                                 </a>
                             </li>
                         <?php endif; ?>

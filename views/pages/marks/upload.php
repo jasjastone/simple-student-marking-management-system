@@ -303,15 +303,3 @@
         });
     </script>
 </main>
-<?php
-if (isset($_POST['approve_button'])) {
-    $id = $_POST['request_id'];
-    $update = $connection->query('UPDATE requests SET approvedrequest=true WHERE id=' . $id);
-    if ($update) {
-        reload(routename: $_GET['name'], route: $_GET['route'], from: $_GET['route'], fromname: $_GET['name'], with: '&message=Approve Successfully');
-    } else {
-        reload(routename: $_GET['name'], route: $_GET['route'], from: $_GET['route'], fromname: $_GET['name'], with: '&error=Fail Approve Successfully');
-    }
-}
-
-?>

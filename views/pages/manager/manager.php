@@ -23,7 +23,7 @@
                 </select>
                 <input type="text" name="coursename" id="coursename" placeholder="Course Name eg. Computer Science" class="form-control mt-2">
                 <div class="d-flex justify-content-end">
-                    <button type="submit" name="addcourse" class="btn btn-primary mt-2">Submit</button>
+                   git p <button type="submit" name="addcourse" class="btn btn-primary mt-2">Submit</button>
                 </div>
                 <hr>
             </div>

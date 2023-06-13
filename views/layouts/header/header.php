@@ -1,9 +1,17 @@
 <?php
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+// make all of the errors and warnign silent
+error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
+set_error_handler(function (int $errno, string $errstr) {
+    if ((strpos($errstr, 'Undefined array key') === false) && (strpos($errstr, 'Undefined variable') === false)) {
+        return false;
+    } else {
+        return true;
+    }
+}, E_WARNING);
 require "./php/connection.php";
 require "./php/globalfunction.php";
 require "./php/globalconstants.php";
@@ -13,8 +21,8 @@ $user = $connection->query("SELECT * FROM users WHERE email='" . $_SESSION['emai
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +33,12 @@ $user = $connection->query("SELECT * FROM users WHERE email='" . $_SESSION['emai
     <link rel="stylesheet" href="./resources/css/spinner.css">
     <link rel="stylesheet" href="./resources/css/register.css">
     <script src="./resources/js/libraries/jquery.min.js"></script>
+    <script src="./resources/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="./resources/js/libraries/feather.min.js"></script>
+    <script src="./resources/js/libraries/select2.js"></script>
+    <script defer src="./resources/js/index.js"></script>
+    <script defer src="./resources/js/request.js"></script>
+    <script defer src="./resources/js/user.js"></script>
     <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
@@ -78,7 +91,7 @@ $user = $connection->query("SELECT * FROM users WHERE email='" . $_SESSION['emai
             -webkit-overflow-scrolling: touch;
         }
     </style>
-    <title><?php  echo APPNAME; ?> </title>
+    <title><?php echo APPNAME; ?> </title>
 </head>
 <!-- <div class="loader-wrapper">
     <span class="loader"><span class="loader-inner"></span></span>

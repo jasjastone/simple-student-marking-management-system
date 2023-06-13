@@ -2,10 +2,17 @@
 session_start();
 // ini_set('display_errors', 1);
 // ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
 //uncomment for production build
+error_reporting(E_ALL);
 ini_set('display_errors', 0);
 ini_set('display_startup_errors', 0);
+set_error_handler(function (int $errno, string $errstr) {
+    if ((strpos($errstr, 'Undefined array key') === false) && (strpos($errstr, 'Undefined variable') === false)) {
+        return false;
+    } else {
+        return true;
+    }
+}, E_WARNING);
 require "./config/app_config.php";
 require "./views/layouts/header/header.php";
 if (!isset($_SESSION['email'])) {
